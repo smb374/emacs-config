@@ -2,10 +2,10 @@
 (use-package nerd-icons
   :straight t)
 
-(use-package editorconfig
-  :straight t
-  :config
-  (editorconfig-mode 1))
+;; (use-package editorconfig
+;;   :straight t
+;;   :config
+;;   (editorconfig-mode 1))
 
 (use-package indent-guide
   :straight t
@@ -16,20 +16,20 @@
   :straight t
   :demand t
   :bind (("C-c j" . avy-goto-line)
-          ("S-j" . avy-goto-char-timer)))
+         ("S-j" . avy-goto-char-timer)))
 
 ;; Consult: Misc. enhanced commands
 (use-package consult
   :straight t
-  :bind ( ("C-x b" . 'consult-buffer)
-          ("M-y" . 'consult-yank-pop)
-          ("C-s" . 'consult-line)
-          ("C-c b" . 'consult-buffer)
-          ("C-c s" . 'consult-line)
-          ("C-c r" . 'consult-recent-file)
-          ("C-c k" . 'consult-ripgrep)
-          ("C-c l" . 'consult-line-multi)
-          ("C-c o" . 'consult-outline))
+  :bind (("C-x b" . 'consult-buffer)
+         ("M-y" . 'consult-yank-pop)
+         ("C-s" . 'consult-line)
+         ("C-c b" . 'consult-buffer)
+         ("C-c s" . 'consult-line)
+         ("C-c r" . 'consult-recent-file)
+         ("C-c k" . 'consult-ripgrep)
+         ("C-c L" . 'consult-line-multi)
+         ("C-c o" . 'consult-outline))
   :config
   ;; Narrowing lets you restrict results to certain groups of candidates
   (setq consult-narrow-key "<"))
@@ -42,11 +42,11 @@
   ;; Add the option to run embark when using avy
   (defun bedrock/avy-action-embark (pt)
     (unwind-protect
-      (save-excursion
-        (goto-char pt)
-        (embark-act))
+        (save-excursion
+          (goto-char pt)
+          (embark-act))
       (select-window
-        (cdr (ring-ref avy-ring 0))))
+       (cdr (ring-ref avy-ring 0))))
     t)
 
   ;; After invoking avy-goto-char-timer, hit "." to run embark at the next
@@ -66,7 +66,7 @@
 (use-package vertico-directory
   :after vertico
   :bind (:map vertico-map
-          ("M-DEL" . vertico-directory-delete-word)))
+              ("M-DEL" . vertico-directory-delete-word)))
 
 ;; Marginalia: annotations for minibuffer
 (use-package marginalia
@@ -79,26 +79,26 @@
   :straight t
   :bind
   (:map corfu-map
-    ("TAB" . 'corfu-next)
-    ([tab] . 'corfu-next)
-    ("S-TAB" . 'corfu-previous)
-    ([backtab] . 'corfu-previous)
-    ([escape] . 'corfu-quit))
+        ("TAB" . 'corfu-next)
+        ([tab] . 'corfu-next)
+        ("S-TAB" . 'corfu-previous)
+        ([backtab] . 'corfu-previous)
+        ([escape] . 'corfu-quit))
   :init
   (global-corfu-mode)
   (corfu-history-mode t)
   (corfu-popupinfo-mode t)
   (setq corfu-auto t
-    corfu-auto-delay 0.1
-    corfu-auto-prefix 2
-    corfu-cycle t
-    corfu-preselect 'prompt
-    corfu-count 16
-    corfu-max-width 120
-    corfu-on-exact-match nil
-    corfu-popupinfo-delay 0.3
-    completion-cycle-threshold nil
-    corfu-preselect-first nil))
+        corfu-auto-delay 0.1
+        corfu-auto-prefix 2
+        corfu-cycle t
+        corfu-preselect 'prompt
+        corfu-count 16
+        corfu-max-width 120
+        corfu-on-exact-match nil
+        corfu-popupinfo-delay 0.3
+        completion-cycle-threshold nil
+        corfu-preselect-first nil))
 
 (use-package corfu-history
   :after corfu
@@ -157,92 +157,97 @@
   (defun meow-setup ()
     (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
     (meow-motion-define-key
-      '("j" . meow-next)
-      '("k" . meow-prev)
-      '("<escape>" . ignore))
+     '("j" . meow-next)
+     '("k" . meow-prev)
+     '("<escape>" . ignore))
     (meow-leader-define-key
-      ;; Use SPC (0-9) for digit arguments.
-      '("1" . meow-digit-argument)
-      '("2" . meow-digit-argument)
-      '("3" . meow-digit-argument)
-      '("4" . meow-digit-argument)
-      '("5" . meow-digit-argument)
-      '("6" . meow-digit-argument)
-      '("7" . meow-digit-argument)
-      '("8" . meow-digit-argument)
-      '("9" . meow-digit-argument)
-      '("0" . meow-digit-argument)
-      '("/" . meow-keypad-describe-key)
-      '("?" . meow-cheatsheet))
+     ;; Use SPC (0-9) for digit arguments.
+     '("1" . meow-digit-argument)
+     '("2" . meow-digit-argument)
+     '("3" . meow-digit-argument)
+     '("4" . meow-digit-argument)
+     '("5" . meow-digit-argument)
+     '("6" . meow-digit-argument)
+     '("7" . meow-digit-argument)
+     '("8" . meow-digit-argument)
+     '("9" . meow-digit-argument)
+     '("0" . meow-digit-argument)
+     '("/" . meow-keypad-describe-key)
+     '("?" . meow-cheatsheet))
     (meow-normal-define-key
-      '("0" . meow-expand-0)
-      '("9" . meow-expand-9)
-      '("8" . meow-expand-8)
-      '("7" . meow-expand-7)
-      '("6" . meow-expand-6)
-      '("5" . meow-expand-5)
-      '("4" . meow-expand-4)
-      '("3" . meow-expand-3)
-      '("2" . meow-expand-2)
-      '("1" . meow-expand-1)
-      '("-" . negative-argument)
-      '(";" . meow-reverse)
-      '("," . meow-inner-of-thing)
-      '("." . meow-bounds-of-thing)
-      '("[" . meow-beginning-of-thing)
-      '("]" . meow-end-of-thing)
-      '("a" . meow-append)
-      '("A" . meow-open-below)
-      '("b" . meow-back-word)
-      '("B" . meow-back-symbol)
-      '("c" . meow-change)
-      '("d" . meow-delete)
-      '("D" . meow-backward-delete)
-      '("e" . meow-next-word)
-      '("E" . meow-next-symbol)
-      '("f" . meow-find)
-      '("g" . meow-cancel-selection)
-      '("G" . meow-grab)
-      '("h" . meow-left)
-      '("H" . meow-left-expand)
-      '("i" . meow-insert)
-      '("I" . meow-open-above)
-      '("j" . meow-next)
-      '("J" . meow-next-expand)
-      '("k" . meow-prev)
-      '("K" . meow-prev-expand)
-      '("l" . meow-right)
-      '("L" . meow-right-expand)
-      '("m" . meow-join)
-      '("n" . meow-search)
-      '("o" . meow-block)
-      '("O" . meow-to-block)
-      '("p" . meow-yank)
-      '("q" . meow-quit)
-      '("Q" . meow-goto-line)
-      '("r" . meow-replace)
-      '("R" . meow-swap-grab)
-      '("s" . meow-kill)
-      '("t" . meow-till)
-      '("u" . meow-undo)
-      '("U" . meow-undo-in-selection)
-      '("v" . meow-visit)
-      '("w" . meow-mark-word)
-      '("W" . meow-mark-symbol)
-      '("x" . meow-line)
-      '("X" . meow-goto-line)
-      '("y" . meow-save)
-      '("Y" . meow-sync-grab)
-      '("z" . meow-pop-selection)
-      '("'" . repeat)
-      '("<escape>" . nano-quit)))
+     '("0" . meow-expand-0)
+     '("9" . meow-expand-9)
+     '("8" . meow-expand-8)
+     '("7" . meow-expand-7)
+     '("6" . meow-expand-6)
+     '("5" . meow-expand-5)
+     '("4" . meow-expand-4)
+     '("3" . meow-expand-3)
+     '("2" . meow-expand-2)
+     '("1" . meow-expand-1)
+     '("-" . negative-argument)
+     '(";" . meow-reverse)
+     '("," . meow-inner-of-thing)
+     '("." . meow-bounds-of-thing)
+     '("[" . meow-beginning-of-thing)
+     '("]" . meow-end-of-thing)
+     '("a" . meow-append)
+     '("A" . meow-open-below)
+     '("b" . meow-back-word)
+     '("B" . meow-back-symbol)
+     '("c" . meow-change)
+     '("d" . meow-delete)
+     '("D" . meow-backward-delete)
+     '("e" . meow-next-word)
+     '("E" . meow-next-symbol)
+     '("f" . meow-find)
+     '("g" . meow-cancel-selection)
+     '("G" . meow-grab)
+     '("h" . meow-left)
+     '("H" . meow-left-expand)
+     '("i" . meow-insert)
+     '("I" . meow-open-above)
+     '("j" . meow-next)
+     '("J" . meow-next-expand)
+     '("k" . meow-prev)
+     '("K" . meow-prev-expand)
+     '("l" . meow-right)
+     '("L" . meow-right-expand)
+     '("m" . meow-join)
+     '("n" . meow-search)
+     '("o" . meow-block)
+     '("O" . meow-to-block)
+     '("p" . meow-yank)
+     '("q" . meow-quit)
+     '("Q" . meow-goto-line)
+     '("r" . meow-replace)
+     '("R" . meow-swap-grab)
+     '("s" . meow-kill)
+     '("t" . meow-till)
+     '("u" . meow-undo)
+     '("U" . meow-undo-in-selection)
+     '("v" . meow-visit)
+     '("w" . meow-mark-word)
+     '("W" . meow-mark-symbol)
+     '("x" . meow-line)
+     '("X" . meow-goto-line)
+     '("y" . meow-save)
+     '("Y" . meow-sync-grab)
+     '("z" . meow-pop-selection)
+     '("'" . repeat)
+     '("<escape>" . nano-quit)))
   :config
   (meow-setup)
-  (meow-define-keys
-    'normal
-    ;; Prvent RET & DEL modifying the content in normal state
+  ;; Prvent RET & DEL modifying the content in normal state
+  (meow-define-keys 'normal
     '("RET" . meow-next)
     '("DEL" . meow-prev))
   (meow-global-mode 1))
+
+;; Meow Tree-sitter
+(use-package meow-tree-sitter
+  :straight t
+  :config
+  (meow-tree-sitter-register-defaults))
 
 (provide 'config-basic)

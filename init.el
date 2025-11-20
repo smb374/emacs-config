@@ -14,6 +14,7 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
+(straight-use-package 'org)
 (straight-use-package 'use-package)
 
 (when (< emacs-major-version 29)
@@ -118,8 +119,8 @@ If the new path's directories does not exist, create them."
   (set-window-margins nil 3 0)
   (let ((inhibit-read-only t))
     (add-text-properties (point-min) (+ (point-min) 1)
-      `(display ((margin left-margin)
-                 ,(format "# %s" (substring (minibuffer-prompt) 0 1))))))
+                         `(display ((margin left-margin)
+                                    ,(format "# %s" (substring (minibuffer-prompt) 0 1))))))
   (setq truncate-lines t))
 (add-hook 'minibuffer-setup-hook #'nano-minibuffer--setup)
 
@@ -128,5 +129,6 @@ If the new path's directories does not exist, create them."
 
 (require 'config-basic)
 (require 'config-dev)
+(require 'config-org)
 (require 'config-ui)
 (require 'config-theme)
