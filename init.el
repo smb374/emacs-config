@@ -96,6 +96,10 @@ If the new path's directories does not exist, create them."
 (setq-default indent-tabs-mode nil
               ring-bell-function 'ignore
               select-enable-clipboard t)
+(setq scroll-conservatively 101
+      scroll-margin 3
+      scroll-preserve-screen-position t
+      auto-window-vscroll nil)
 (setq inhibit-startup-screen t)
 (setq inhibit-startup-message t)
 (setq tab-always-indent 'complete)
