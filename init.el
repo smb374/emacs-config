@@ -53,7 +53,7 @@
 (which-key-mode 1)
 
 ;; --- Backup file settings ---------------------------------------------------
-(defun bedrock--backup-file-name (fpath)
+(defun my--backup-file-name (fpath)
   "Return a new file path of a given file path.
 If the new path's directories does not exist, create them."
   (let* ((backupRootDir "~/.emacs.d/emacs-backup/")
@@ -61,7 +61,7 @@ If the new path's directories does not exist, create them."
          (backupFilePath (replace-regexp-in-string "//" "/" (concat backupRootDir filePath "~") )))
     (make-directory (file-name-directory backupFilePath) (file-name-directory backupFilePath))
     backupFilePath))
-(setopt make-backup-file-name-function 'bedrock--backup-file-name)
+(setopt make-backup-file-name-function 'my--backup-file-name)
 
 ;; --- Minimal key bindings ---------------------------------------------------
 (defun nano-quit ()
@@ -119,14 +119,14 @@ If the new path's directories does not exist, create them."
         mac-command-modifier 'meta))
 
 ;; --- Minibuffer setup -------------------------------------------------------
-(defun nano-minibuffer--setup ()
+(defun my-minibuffer--setup ()
   (set-window-margins nil 3 0)
   (let ((inhibit-read-only t))
     (add-text-properties (point-min) (+ (point-min) 1)
                          `(display ((margin left-margin)
                                     ,(format "# %s" (substring (minibuffer-prompt) 0 1))))))
   (setq truncate-lines t))
-(add-hook 'minibuffer-setup-hook #'nano-minibuffer--setup)
+(add-hook 'minibuffer-setup-hook #'my-minibuffer--setup)
 
 ;; --- Extra configs ----------------------------------------------------------
 (add-to-list 'load-path "~/.emacs.d/lisp/")

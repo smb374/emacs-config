@@ -54,7 +54,7 @@
   :bind (("C-c a" . embark-act))        ; bind this to an easy key to hit
   :init
   ;; Add the option to run embark when using avy
-  (defun bedrock/avy-action-embark (pt)
+  (defun my/avy-action-embark (pt)
     (unwind-protect
         (save-excursion
           (goto-char pt)
@@ -65,7 +65,7 @@
 
   ;; After invoking avy-goto-char-timer, hit "." to run embark at the next
   ;; candidate you select
-  (setf (alist-get ?. avy-dispatch-alist) 'bedrock/avy-action-embark))
+  (setf (alist-get ?. avy-dispatch-alist) 'my/avy-action-embark))
 
 (use-package embark-consult
   :straight t)
@@ -141,11 +141,11 @@
 
 (use-package eshell
   :init
-  (defun bedrock/setup-eshell ()
+  (defun my/setup-eshell ()
     ;; Something funny is going on with how Eshell sets up its keymaps; this is
     ;; a work-around to make C-r bound in the keymap
     (keymap-set eshell-mode-map "C-r" 'consult-history))
-  :hook ((eshell-mode . bedrock/setup-eshell)))
+  :hook ((eshell-mode . my/setup-eshell)))
 
 ;; Orderless: powerful completion style
 (use-package orderless
