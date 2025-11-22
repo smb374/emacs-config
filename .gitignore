@@ -9,3 +9,4 @@ straight
 transient
 tree-sitter
 *.db
+tramp

@@ -36,6 +36,18 @@
   ;; Sometimes you need to tell Eglot where to find the language server
                                         ; (add-to-list 'eglot-server-programs
                                         ;              '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
+  (add-to-list 'eglot-server-programs
+               '((c-mode c++-mode c-or-c++-mode)
+                 . ("clangd"
+                    "--background-index"
+                    "--clang-tidy"
+                    "--function-arg-placeholders"
+                    "--all-scopes-completion"
+                    "--cross-file-rename"
+                    "--completion-style=detailed"
+                    "--header-insertion=iwyu"
+                    "--header-insertion-decorators"))
+               )
   )
 
 (use-package projectile
@@ -50,6 +62,31 @@
   :straight t
   :hook (prog-mode . smartparens-mode)
   :config
-  (require 'smartparens-config))
+  (require 'smartparens-config)
+  (setq sp-highlight-pair-overlay nil))
+
+(defun my/vterm-setting ()
+  "Settings for vterm after vterm is active"
+  (setq confirm-kill-processes nil
+        hscroll-margin 0))
+
+(use-package vterm
+  :straight t
+  :bind ("C-c t" . vterm)
+  :hook (vterm-mode . my/vterm-setting)
+  :config
+  (add-to-list 'display-buffer-alist
+               '("^\\*vterm"
+                 (display-buffer-in-side-window)
+                 (side . bottom)
+                 (slot . -1)
+                 (window-height . 0.33)
+                 (window-vscroll . t)
+                 (window-parameters
+                  (no-delete-other-window . nil))))
+  (add-to-list 'meow-mode-state-list
+               '(vterm-mode . insert))
+  (setq vterm-kill-buffer-on-exit t
+        vterm-max-scrollback 5000))
 
 (provide 'config-dev)

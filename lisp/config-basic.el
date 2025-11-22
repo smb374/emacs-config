@@ -2,14 +2,22 @@
 (use-package nerd-icons
   :straight t)
 
-;; (use-package editorconfig
-;;   :straight t
-;;   :config
-;;   (editorconfig-mode 1))
+(use-package editorconfig
+  :straight t
+  :config
+  (editorconfig-mode 1))
 
 (use-package indent-guide
   :straight t
   :hook (prog-mode . indent-guide-mode))
+
+(use-package rainbow-mode
+  :straight t
+  :hook (after-init . rainbow-mode))
+
+;; (use-package rainbow-delimiters
+;;   :straight t
+;;   :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package exec-path-from-shell
   :straight t
