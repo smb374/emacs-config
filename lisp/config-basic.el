@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;; Basic extensions
 (use-package nerd-icons
   :straight t)
@@ -256,6 +257,8 @@
   (meow-define-keys 'normal
     '("RET" . meow-next)
     '("DEL" . meow-prev))
+  (meow-define-keys 'insert
+    '("DEL" . backward-delete-char-untabify))
   (meow-global-mode 1))
 
 ;; Meow Tree-sitter

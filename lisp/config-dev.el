@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (use-package treesit-auto
   :straight t
   :custom
@@ -27,6 +28,8 @@
 
 (use-package eglot
   :hook (prog-mode . eglot-ensure)
+  :bind (("C-c e r" . 'eglot-rename)
+         ("C-c e f" . 'eglot-format-buffer))
   :custom
   (eglot-send-changes-idle-time 0.1)
   (eglot-extend-to-xref t)              ; activate Eglot in referenced non-project files
@@ -88,5 +91,10 @@
                '(vterm-mode . insert))
   (setq vterm-kill-buffer-on-exit t
         vterm-max-scrollback 5000))
+
+(use-package zig-mode
+  :straight t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.\\(zig\\|zon\\)\\'" . zig-mode)))
 
 (provide 'config-dev)

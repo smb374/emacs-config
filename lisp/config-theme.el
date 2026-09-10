@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 ;;; ┌──────────────────── THEMES
 ;;; │ Catppuccin Mocha Based Theme (hacked Modus)
 ;;

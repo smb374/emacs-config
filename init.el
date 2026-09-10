@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t; -*-
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name
@@ -23,7 +24,7 @@
 ;; --- Typography stack -------------------------------------------------------
 
 (set-face-attribute 'default nil
-                    :height 120 :weight 'regular :family "Maple Mono NF CN")
+                    :height 110 :weight 'regular :family "Maple Mono NF CN")
 (set-face-attribute 'bold nil :weight 'bold)
 (set-face-attribute 'bold-italic nil :weight 'bold :slant 'italic)
 (set-display-table-slot standard-display-table 'truncation (make-glyph-code ?…))
@@ -47,6 +48,7 @@
 (savehist-mode 1)
 (cua-mode 1)
 (recentf-mode 1)
+(setq auto-save-default nil)
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 (when (display-graphic-p)
   (context-menu-mode 1))
@@ -99,7 +101,8 @@ If the new path's directories does not exist, create them."
 (setq scroll-conservatively 101
       scroll-margin 3
       scroll-preserve-screen-position t
-      auto-window-vscroll nil)
+      auto-window-vscroll nil
+      backward-delete-char-untabify-method 'hungry)
 (setq inhibit-startup-screen t)
 (setq inhibit-startup-message t)
 (setq tab-always-indent 'complete)
