@@ -7,6 +7,10 @@
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
 
+(use-package odin-ts-mode
+  :straight (:host github :repo "Sampie159/odin-ts-mode")
+  :mode "\\.odin\\'")
+
 (use-package magit
   :straight t
   :bind ("C-x g" . 'magit-status))
@@ -51,6 +55,8 @@
                     "--header-insertion=iwyu"
                     "--header-insertion-decorators"))
                )
+  (add-to-list 'eglot-server-programs
+               '((odin-mode odin-ts-mode) . ("ols")))
   )
 
 (use-package projectile

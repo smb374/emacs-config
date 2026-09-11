@@ -131,6 +131,10 @@ If the new path's directories does not exist, create them."
   (setq truncate-lines t))
 (add-hook 'minibuffer-setup-hook #'my-minibuffer--setup)
 
+;; --- Tree-Sitter sources ----------------------------------------------------
+(defvar treesit-language-source-alist nil)
+(add-to-list 'treesit-language-source-alist '(odin "https://github.com/tree-sitter-grammars/tree-sitter-odin"))
+
 ;; --- Extra configs ----------------------------------------------------------
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
