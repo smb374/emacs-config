@@ -103,4 +103,8 @@
   :config
   (add-to-list 'auto-mode-alist '("\\.\\(zig\\|zon\\)\\'" . zig-mode)))
 
+(use-package markdown-ts-mode
+  :mode ("\\.md\\'" . markdown-ts-mode)
+  :straight t)
+
 (provide 'config-dev)

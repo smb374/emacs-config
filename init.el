@@ -134,6 +134,7 @@ If the new path's directories does not exist, create them."
 ;; --- Tree-Sitter sources ----------------------------------------------------
 (defvar treesit-language-source-alist nil)
 (add-to-list 'treesit-language-source-alist '(odin "https://github.com/tree-sitter-grammars/tree-sitter-odin"))
+(add-to-list 'treesit-language-source-alist '(markdown-inline "https://github.com/tree-sitter-grammars/tree-sitter-markdown" "split_parser" "tree-sitter-markdown-inline/src"))
 
 ;; --- Extra configs ----------------------------------------------------------
 (add-to-list 'load-path "~/.emacs.d/lisp/")
