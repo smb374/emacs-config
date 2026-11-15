@@ -120,7 +120,7 @@
   :hook (corfu-mode . corfu-history-mode))
 
 (use-package corfu-terminal
-  :if (not (display-graphic-p))
+  :if (and (not (display-graphic-p)) (< emacs-major-version 31))
   :straight t
   :config
   (corfu-terminal-mode))
