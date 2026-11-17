@@ -9,6 +9,8 @@
 
 
 (setq treesit-font-lock-level 4)
+;; Emacs 31: elisp has no tree-sitter. This colors function calls and variables by role.
+(setq elisp-fontify-semantically t)
 
 (use-package apheleia
   :ensure t
