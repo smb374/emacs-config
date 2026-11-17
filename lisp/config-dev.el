@@ -11,6 +11,10 @@
 (setq treesit-font-lock-level 4)
 ;; Emacs 31: elisp has no tree-sitter. This colors function calls and variables by role.
 (setq elisp-fontify-semantically t)
+;; Untrusted buffers skip macro expansion, so code inside use-package stays uncolored.
+(setq trusted-content
+      (mapcar (lambda (f) (abbreviate-file-name (expand-file-name f user-emacs-directory)))
+              '("init.el" "lisp/")))
 
 (use-package apheleia
   :ensure t
