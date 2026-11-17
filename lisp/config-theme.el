@@ -12,6 +12,7 @@
   (modus-themes-bold-constructs t)
   (modus-themes-mixed-fonts nil)
   (modus-themes-prompts '(bold intense))
+  (modus-themes-headings '((1 . (1.3)) (2 . (1.2)) (3 . (1.1)) (t . (1.0))))
   (modus-themes-common-palette-overrides
    `((accent-0 "#89b4fa")
      (accent-1 "#89dceb")
