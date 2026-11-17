@@ -15,20 +15,13 @@
   :ensure t
   :bind ("C-x g" . 'magit-status))
 
-(use-package git-gutter
+(use-package diff-hl
   :ensure t
-  :hook (prog-mode . git-gutter-mode)
+  :hook ((prog-mode . diff-hl-mode)
+         (magit-pre-refresh . diff-hl-magit-pre-refresh)
+         (magit-post-refresh . diff-hl-magit-post-refresh))
   :config
-  (setq git-gutter:update-interval 0.02))
-
-(use-package git-gutter-fringe
-  :ensure t
-  :after git-gutter
-  :config
-  (fringe-mode '(8 . 8))
-  (define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
-  (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
-  (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
+  (fringe-mode '(8 . 8)))
 
 (use-package eglot
   :hook (prog-mode . eglot-ensure)

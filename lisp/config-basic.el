@@ -5,9 +5,9 @@
 
 (editorconfig-mode 1) ; built in
 
-(use-package indent-guide
+(use-package indent-bars
   :ensure t
-  :hook (prog-mode . indent-guide-mode))
+  :hook (prog-mode . indent-bars-mode))
 
 (use-package rainbow-mode
   :ensure t
