@@ -7,6 +7,20 @@
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
 
+
+(setq treesit-font-lock-level 4)
+
+(use-package apheleia
+  :ensure t
+  :config
+  ;; apheleia has no odinfmt entry. odinfmt -stdin reads stdin, writes stdout.
+  (setf (alist-get 'odinfmt apheleia-formatters) '("odinfmt" "-stdin"))
+  (setf (alist-get 'odin-ts-mode apheleia-mode-alist) 'odinfmt)
+  (apheleia-global-mode 1))
+
+(setq require-final-newline t)
+(add-hook 'prog-mode-hook
+          (lambda () (add-hook 'before-save-hook #'delete-trailing-whitespace nil t)))
 (use-package odin-ts-mode
   :vc (:url "https://github.com/Sampie159/odin-ts-mode")
   :mode "\\.odin\\'")
