@@ -1,45 +1,5 @@
 ;;; -*- lexical-binding: t; -*-
-;;; Emacs Bedrock
-;;;
-;;; Extra config: Org-mode starter config
-
-;;; Usage: Append or require this file from init.el for some software
-;;; development-focused packages.
-;;;
-;;; Org-mode is a fantastically powerful package. It does a lot of things, which
-;;; makes it a little difficult to understand at first.
-;;;
-;;; We will configure Org-mode in phases. Work with each phase as you are
-;;; comfortable.
-;;;
-;;; YOU NEED TO CONFIGURE SOME VARIABLES! The most important variable is the
-;;; `org-directory', which tells org-mode where to look to find your agenda
-;;; files.
-
-;;; See "org-intro.txt" for a high-level overview.
-
-;;; Contents:
-;;;
-;;;  - Critical variables
-;;;  - Phase 1: editing and exporting files
-;;;  - Phase 2: todos, agenda generation, and task tracking
-;;;  - Phase 3: extensions (org-roam, etc.)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;;   Critical variables
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;; These variables need to be set for Org-mode's full power to be unlocked!
-;;;
-;;; You can read the documentation for any variable with `C-h v'. If you have
-;;; Consult configured (see the `base.el' file) then it should help you find
-;;; what you're looking for.
-
-;;; Phase 1 variables
-
-;;; Phase 2 variables
+;; Org-mode, agenda, and org-roam.
 
 ;; Agenda variables
 (setq org-directory "~/Documents/org/") ; Non-absolute paths for agenda and
@@ -68,25 +28,11 @@
                       ("reading")))
 
 
-;;; Phase 3 variables
-
 ;; Org-roam variables
 (setq org-roam-directory "~/Documents/org-roam/")
 (setq org-roam-index-file "~/Documents/org-roam/index.org")
 
-;;; Optional variables
-
-;; Advanced: Custom link types
-;; This example is for linking a person's 7-character ID to their page on the
-;; free genealogy website Family Search.
-(setq org-link-abbrev-alist
-      '(("family_search" . "https://www.familysearch.org/tree/person/details/%s")))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;;   Phase 1: editing and exporting files
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; --- Editing and export ------------------------------------------------------
 
 (use-package org
   :hook ((org-mode . visual-line-mode)  ; wrap lines at word breaks
@@ -106,11 +52,7 @@
   (setq org-export-with-smart-quotes t)
   )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;;   Phase 2: todos, agenda generation, and task tracking
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; --- Todos, agenda, capture --------------------------------------------------
 
 ;; Yes, you can have multiple use-package declarations. It's best if their
 ;; configs don't overlap. Once you've reached Phase 2, I'd recommend merging the
@@ -146,11 +88,7 @@
           ("w" "Work" agenda ""
            ((org-agenda-files '("work.org")))))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;;   Phase 3: extensions (org-roam, etc.)
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; --- Extensions --------------------------------------------------------------
 
 (use-package org-roam
   :straight t

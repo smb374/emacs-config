@@ -23,44 +23,18 @@
 (straight-use-package 'use-package)
 
 
-;; --- Typography stack -------------------------------------------------------
-
-(set-face-attribute 'default nil
-                    :height 110 :weight 'regular :family "Maple Mono NF CN")
-(set-face-attribute 'bold nil :weight 'bold)
-(set-face-attribute 'bold-italic nil :weight 'bold :slant 'italic)
-(set-display-table-slot standard-display-table 'truncation (make-glyph-code ?…))
-(set-display-table-slot standard-display-table 'wrap (make-glyph-code ?–))
-
-;; --- Frame / windows layout & behavior --------------------------------------
-(setq default-frame-alist
-      '((height . 44) (width  . 81) (left-fringe . 0) (right-fringe . 0)
-        (internal-border-width . 32) (vertical-scroll-bars . nil)
-        (bottom-divider-width . 0) (right-divider-width . 0)
-        (undecorated-round . t)))
-(modify-frame-parameters nil default-frame-alist)
-(setq-default pop-up-windows nil)
-
 ;; --- Activate / Deactivate modes --------------------------------------------
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(blink-cursor-mode -1)
-(global-hl-line-mode 1)
-(pixel-scroll-precision-mode 1)
 (savehist-mode 1)
 (cua-mode 1)
 (recentf-mode 1)
 (setq auto-save-default nil)
-(add-hook 'prog-mode-hook #'display-line-numbers-mode)
-(when (display-graphic-p)
-  (context-menu-mode 1))
 (which-key-mode 1)
 
 ;; --- Backup file settings ---------------------------------------------------
 (defun my--backup-file-name (fpath)
   "Return a new file path of a given file path.
 If the new path's directories does not exist, create them."
-  (let* ((backupRootDir "~/.emacs.d/emacs-backup/")
+  (let* ((backupRootDir (expand-file-name "emacs-backup/" user-emacs-directory))
          (filePath (replace-regexp-in-string "[A-Za-z]:" "" fpath )) ; remove Windows driver letter in path
          (backupFilePath (replace-regexp-in-string "//" "/" (concat backupRootDir filePath "~") )))
     (make-directory (file-name-directory backupFilePath) t)
@@ -111,7 +85,6 @@ If the new path's directories does not exist, create them."
 (defun display-startup-echo-area-message ()
   "If it wasn't for this you'd be GNU/Spammed by now"
   (message ""))
-(setopt indicate-buffer-boundaries 'left)  ; Show buffer top and bottom in the margin
 (add-hook 'text-mode-hook 'visual-line-mode)
 
 ;; --- OSX Specific -----------------------------------------------------------
@@ -123,25 +96,16 @@ If the new path's directories does not exist, create them."
         mac-right-option-modifier 'alt
         mac-command-modifier 'meta))
 
-;; --- Minibuffer setup -------------------------------------------------------
-(defun my-minibuffer--setup ()
-  (set-window-margins nil 3 0)
-  (let ((inhibit-read-only t))
-    (add-text-properties (point-min) (+ (point-min) 1)
-                         `(display ((margin left-margin)
-                                    ,(format "# %s" (substring (minibuffer-prompt) 0 1))))))
-  (setq truncate-lines t))
-(add-hook 'minibuffer-setup-hook #'my-minibuffer--setup)
-
 ;; --- Tree-Sitter sources ----------------------------------------------------
 (defvar treesit-language-source-alist nil)
 (add-to-list 'treesit-language-source-alist '(odin "https://github.com/tree-sitter-grammars/tree-sitter-odin"))
 (add-to-list 'treesit-language-source-alist '(markdown-inline "https://github.com/tree-sitter-grammars/tree-sitter-markdown" "split_parser" "tree-sitter-markdown-inline/src"))
 
 ;; --- Extra configs ----------------------------------------------------------
-(add-to-list 'load-path "~/.emacs.d/lisp/")
+(add-to-list 'load-path (expand-file-name "lisp/" user-emacs-directory))
 
 (require 'config-basic)
+(require 'config-meow)
 (require 'config-dev)
 (require 'config-org)
 (require 'config-ui)
