@@ -3,7 +3,7 @@
 
 ;; Meow
 (use-package meow
-  :straight t
+  :ensure t
   :init
   (defun meow-setup ()
     (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
@@ -99,7 +99,7 @@
 
 ;; Meow Tree-sitter
 (use-package meow-tree-sitter
-  :straight t
+  :ensure t
   :config
   (meow-tree-sitter-register-defaults))
 (provide 'config-meow)

@@ -1,41 +1,39 @@
 ;;; -*- lexical-binding: t; -*-
 ;; Basic extensions
 (use-package nerd-icons
-  :straight t)
+  :ensure t)
 
-(use-package editorconfig
-  :straight t
-  :config
-  (editorconfig-mode 1))
+(editorconfig-mode 1) ; built in
 
 (use-package indent-guide
-  :straight t
+  :ensure t
   :hook (prog-mode . indent-guide-mode))
 
 (use-package rainbow-mode
-  :straight t
-  :hook (prog-mode . rainbow-mode))
+  :ensure t
+  :hook ((css-mode css-ts-mode html-mode html-ts-mode mhtml-mode
+          conf-mode toml-ts-mode yaml-ts-mode) . rainbow-mode))
 
 ;; (use-package rainbow-delimiters
-;;   :straight t
+;;   :ensure t
 ;;   :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package exec-path-from-shell
-  :straight t
+  :ensure t
   :config
   (exec-path-from-shell-initialize)
   (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
 
 ;; Motion aids
 (use-package avy
-  :straight t
+  :ensure t
   :demand t
   :bind (("C-c j" . avy-goto-line)
          ("S-j" . avy-goto-char-timer)))
 
 ;; Consult: Misc. enhanced commands
 (use-package consult
-  :straight t
+  :ensure t
   :bind (("C-x b" . 'consult-buffer)
          ("M-y" . 'consult-yank-pop)
          ("C-s" . 'consult-line)
@@ -50,7 +48,7 @@
   (setq consult-narrow-key "<"))
 
 (use-package embark
-  :straight t
+  :ensure t
   :after avy
   :bind (("C-c a" . embark-act))        ; bind this to an easy key to hit
   :init
@@ -69,11 +67,11 @@
   (setf (alist-get ?. avy-dispatch-alist) 'my/avy-action-embark))
 
 (use-package embark-consult
-  :straight t)
+  :ensure t)
 
 ;; Vertico: better vertical completion for minibuffer commands
 (use-package vertico
-  :straight t
+  :ensure t
   :init
   ;; You'll want to make sure that e.g. fido-mode isn't enabled
   (vertico-mode))
@@ -85,13 +83,13 @@
 
 ;; Marginalia: annotations for minibuffer
 (use-package marginalia
-  :straight t
+  :ensure t
   :config
   (marginalia-mode))
 
 ;; Corfu
 (use-package corfu
-  :straight t
+  :ensure t
   :bind
   (:map corfu-map
         ("TAB" . 'corfu-next)
@@ -117,20 +115,20 @@
 
 (use-package corfu-terminal
   :if (and (not (display-graphic-p)) (< emacs-major-version 31))
-  :straight t
+  :ensure t
   :config
   (corfu-terminal-mode))
 
 ;; Pretty icons for corfu
 (use-package nerd-icons-corfu
-  :straight t
+  :ensure t
   :config
   (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
 ;; Fancy completion-at-point functions; there's too much in the cape package to
 ;; configure here; dive in when you're comfortable!
 (use-package cape
-  :straight t
+  :ensure t
   :init
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
   (add-to-list 'completion-at-point-functions #'cape-file)
@@ -146,7 +144,7 @@
 
 ;; Orderless: powerful completion style
 (use-package orderless
-  :straight t
+  :ensure t
   :custom
   ;; (orderless-style-dispatchers '(orderless-affix-dispatch))
   ;; (orderless-component-separator #'orderless-escapable-split-on-space)
@@ -157,7 +155,7 @@
 
 ;; Modify search results en masse
 (use-package wgrep
-  :straight t
+  :ensure t
   :config
   (setq wgrep-auto-save-buffer t))
 

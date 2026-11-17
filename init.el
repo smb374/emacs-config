@@ -1,26 +1,10 @@
 ;;; -*- lexical-binding: t; -*-
 
-(when (< emacs-major-version 29)
-  (error "Only works with Emacs 29 and newer; you have version %d" emacs-major-version))
+(when (< emacs-major-version 30)
+  (error "Only works with Emacs 30 and newer; you have version %d" emacs-major-version))
 
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name
-        "straight/repos/straight.el/bootstrap.el"
-        (or (bound-and-true-p straight-base-dir)
-            user-emacs-directory)))
-      (bootstrap-version 7))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
-
-(straight-use-package 'org)
-(straight-use-package 'use-package)
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
 
 ;; --- Activate / Deactivate modes --------------------------------------------

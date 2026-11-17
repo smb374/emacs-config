@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 (use-package treesit-auto
-  :straight t
+  :ensure t
   :custom
   (treesit-auto-install 'prompt)
   :config
@@ -8,21 +8,21 @@
   (global-treesit-auto-mode))
 
 (use-package odin-ts-mode
-  :straight (:host github :repo "Sampie159/odin-ts-mode")
+  :vc (:url "https://github.com/Sampie159/odin-ts-mode")
   :mode "\\.odin\\'")
 
 (use-package magit
-  :straight t
+  :ensure t
   :bind ("C-x g" . 'magit-status))
 
 (use-package git-gutter
-  :straight t
+  :ensure t
   :hook (prog-mode . git-gutter-mode)
   :config
   (setq git-gutter:update-interval 0.02))
 
 (use-package git-gutter-fringe
-  :straight t
+  :ensure t
   :after git-gutter
   :config
   (fringe-mode '(8 . 8))
@@ -59,20 +59,8 @@
                '((odin-mode odin-ts-mode) . ("ols")))
   )
 
-(use-package projectile
-  :straight t
-  :bind ("C-c p" . 'projectile-command-map)
-  :init
-  (setq projectile-switch-project-action 'neotree-projectile-action)
-  :config
-  (projectile-mode 1))
-
-(use-package smartparens
-  :straight t
-  :hook (prog-mode . smartparens-mode)
-  :config
-  (require 'smartparens-config)
-  (setq sp-highlight-pair-overlay nil))
+;; Built-in project.el (C-x p) replaces projectile; electric-pair replaces smartparens.
+(add-hook 'prog-mode-hook #'electric-pair-local-mode)
 
 (defun my/vterm-setting ()
   "Settings for vterm after vterm is active"
@@ -80,7 +68,7 @@
         hscroll-margin 0))
 
 (use-package vterm
-  :straight t
+  :ensure t
   :bind ("C-c t" . vterm)
   :hook (vterm-mode . my/vterm-setting)
   :config
@@ -99,12 +87,16 @@
         vterm-max-scrollback 5000))
 
 (use-package zig-mode
-  :straight t
+  :ensure t
   :config
   (add-to-list 'auto-mode-alist '("\\.\\(zig\\|zon\\)\\'" . zig-mode)))
 
-(use-package markdown-ts-mode
-  :mode ("\\.md\\'" . markdown-ts-mode)
-  :straight t)
+;; markdown-ts-mode is built in on Emacs 31.
+(when (< emacs-major-version 31)
+  (use-package markdown-ts-mode
+    :ensure t
+    :mode ("\\.md\\'" . markdown-ts-mode)))
+(when (>= emacs-major-version 31)
+  (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-ts-mode)))
 
 (provide 'config-dev)

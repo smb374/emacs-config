@@ -91,7 +91,7 @@
 ;; --- Extensions --------------------------------------------------------------
 
 (use-package org-roam
-  :straight t
+  :ensure t
   :config
   (org-roam-db-autosync-mode)
   ;; Dedicated side window for backlinks
@@ -101,16 +101,4 @@
                  (side . right)
                  (window-width . 0.4)
                  (window-height . fit-window-to-buffer))))
-
-;; Pretty web interface for org-roam
-(use-package org-roam-ui
-  :straight t
-  :after org-roam
-  :config
-  (setq org-roam-ui-sync-theme t
-        org-roam-ui-follow t
-        org-roam-ui-update-on-save t
-        org-roam-ui-open-on-start t))
-
-
 (provide 'config-org)
