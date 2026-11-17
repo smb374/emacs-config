@@ -91,12 +91,11 @@
   :config
   (add-to-list 'auto-mode-alist '("\\.\\(zig\\|zon\\)\\'" . zig-mode)))
 
-;; markdown-ts-mode is built in on Emacs 31.
+;; Built in on Emacs 31 but not autoloaded, so treesit-auto skips it; :mode creates the autoload.
 (when (< emacs-major-version 31)
-  (use-package markdown-ts-mode
-    :ensure t
-    :mode ("\\.md\\'" . markdown-ts-mode)))
-(when (>= emacs-major-version 31)
-  (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-ts-mode)))
+  (use-package markdown-ts-mode :ensure t))
+(use-package markdown-ts-mode
+  :ensure nil
+  :mode ("\\.md\\'" . markdown-ts-mode))
 
 (provide 'config-dev)
