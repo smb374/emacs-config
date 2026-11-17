@@ -63,6 +63,11 @@ If the new path's directories does not exist, create them."
       scroll-preserve-screen-position t
       auto-window-vscroll nil
       backward-delete-char-untabify-method 'hungry)
+
+;; --- Performance ------------------------------------------------------------
+(setq gc-cons-threshold (* 100 1024 1024)   ; default 800 KB
+      read-process-output-max (* 1024 1024)) ; default 64 KB; larger LSP messages
+(global-so-long-mode 1)
 (setq inhibit-startup-screen t)
 (setq inhibit-startup-message t)
 (setq tab-always-indent 'complete)
