@@ -89,6 +89,16 @@
      (string "#a6e3a1")
      (type      "#f9e2af")
      (variable  "#fab387")
+     ;; Level-4 tree-sitter faces. Modus defaults are not Catppuccin; colors follow the style guide.
+     (bracket "#9399b2")
+     (delimiter "#9399b2")
+     (punctuation "#9399b2")
+     (operator "#89dceb")
+     (fnname-call "#89b4fa")
+     (variable-use fg-main)
+     (preprocessor "#f5e0dc")
+     (rx-backslash "#f5c2e7")
+     (rx-construct "#f5c2e7")
      (warning "#f9e2af")))
   :config
   (modus-themes-with-colors
