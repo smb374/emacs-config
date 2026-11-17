@@ -57,7 +57,7 @@
   ;; Follow file links in the same window.
   (setf (cdr (assoc 'file org-link-frame-setup)) 'find-file))
 
-;; Spell checking needs hunspell and its en_US dictionary (see README).
+;; Needs hunspell and its en_US dictionary on PATH, or flyspell-mode fails.
 (setq ispell-program-name "hunspell"
       ispell-dictionary "en_US")
 
