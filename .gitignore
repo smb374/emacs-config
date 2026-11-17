@@ -10,3 +10,4 @@ tree-sitter
 *.db
 tramp
 *.eld
+.org-id-locations
