@@ -83,7 +83,6 @@
      (identifier "#cba6f7")
      (info    "#94e2d5")
      (keyword   "#cba6f7")
-     (keyword "#cba6f7")
      (name "#89b4fa")
      (number "#fab387")
      (property "#89b4fa")
@@ -119,10 +118,10 @@
      `(tab-bar ((,c :background "#1e1e2e" :foreground "#bac2de")))
      `(tab-bar-tab ((,c :background "#1e1e2e" :underline t)))
      `(tab-bar-tab-group-current ((,c :background "#1e1e2e" :foreground "#bac2de" :underline t)))
-     `(tab-bar-tab-group-inactive ((,c :background "#1e1e2e" :foreground "#9399b2"))))
-    `(tab-bar-tab-inactive ((,c :background "#1e1e2e" :foreground "#a6adc8")))
-    `(vc-dir-file ((,c :foreground "#89b4fa")))
-    `(vc-dir-header-value ((,c :foreground "#b4befe"))))
+     `(tab-bar-tab-group-inactive ((,c :background "#1e1e2e" :foreground "#9399b2")))
+     `(tab-bar-tab-inactive ((,c :background "#1e1e2e" :foreground "#a6adc8")))
+     `(vc-dir-file ((,c :foreground "#89b4fa")))
+     `(vc-dir-header-value ((,c :foreground "#b4befe")))))
   :init
   (load-theme 'modus-vivendi t))
 

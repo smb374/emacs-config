@@ -67,8 +67,6 @@
                       ("review")
                       ("reading")))
 
-;; Org-refile: where should org-refile look?
-(setq org-refile-targets 'FIXME)
 
 ;;; Phase 3 variables
 

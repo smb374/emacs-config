@@ -115,10 +115,6 @@
         completion-cycle-threshold nil
         corfu-preselect-first nil))
 
-(use-package corfu-history
-  :after corfu
-  :hook (corfu-mode . corfu-history-mode))
-
 (use-package corfu-terminal
   :if (and (not (display-graphic-p)) (< emacs-major-version 31))
   :straight t

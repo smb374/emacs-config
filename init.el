@@ -1,4 +1,8 @@
 ;;; -*- lexical-binding: t; -*-
+
+(when (< emacs-major-version 29)
+  (error "Only works with Emacs 29 and newer; you have version %d" emacs-major-version))
+
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name
@@ -18,8 +22,6 @@
 (straight-use-package 'org)
 (straight-use-package 'use-package)
 
-(when (< emacs-major-version 29)
-  (error (format "Only works with Emacs 29 and newer; you have version ~a" emacs-major-version)))
 
 ;; --- Typography stack -------------------------------------------------------
 
@@ -61,7 +63,7 @@ If the new path's directories does not exist, create them."
   (let* ((backupRootDir "~/.emacs.d/emacs-backup/")
          (filePath (replace-regexp-in-string "[A-Za-z]:" "" fpath )) ; remove Windows driver letter in path
          (backupFilePath (replace-regexp-in-string "//" "/" (concat backupRootDir filePath "~") )))
-    (make-directory (file-name-directory backupFilePath) (file-name-directory backupFilePath))
+    (make-directory (file-name-directory backupFilePath) t)
     backupFilePath))
 (setopt make-backup-file-name-function 'my--backup-file-name)
 
