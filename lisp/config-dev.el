@@ -22,7 +22,17 @@
   ;; apheleia has no odinfmt entry. odinfmt -stdin reads stdin, writes stdout.
   (setf (alist-get 'odinfmt apheleia-formatters) '("odinfmt" "-stdin"))
   (setf (alist-get 'odin-ts-mode apheleia-mode-alist) 'odinfmt)
+  ;; elisp-autofmt formats elisp on save, so apheleia must skip it.
+  (setf (alist-get 'emacs-lisp-mode apheleia-mode-alist) nil)
   (apheleia-global-mode 1))
+
+(use-package parinfer-rust-mode
+  :ensure t
+  :hook ((emacs-lisp-mode . parinfer-rust-mode)
+         ;; Parinfer manages parens; electric-pair would double them.
+         (emacs-lisp-mode . (lambda () (electric-pair-local-mode -1))))
+  :init
+  (setq parinfer-rust-auto-download t))
 
 (setq require-final-newline t)
 (add-hook 'prog-mode-hook

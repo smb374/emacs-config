@@ -11,3 +11,6 @@ tree-sitter
 tramp
 *.eld
 .org-id-locations
+bookmarks
+elisp-autofmt-cache/*
+parinfer-rust/*
