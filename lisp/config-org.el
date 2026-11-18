@@ -27,6 +27,7 @@
   (org-outline-path-complete-in-steps nil)
   (org-refile-use-outline-path 'file)
   (org-export-with-smart-quotes t)
+  (org-refile-targets '((org-agenda-files :maxlevel . 2)))
   (org-capture-templates
    '(("c" "Default Capture" entry (file "inbox.org")
       "* TODO %?\n%U\n%i")
@@ -67,6 +68,21 @@
   :ensure t
   :custom
   (org-roam-directory "~/Documents/org-roam/")
+  (org-roam-dailies-capture-templates
+   '(("d" "log" entry "* %<%H:%M> %?"
+      :target (file+head "%<%Y-%m-%d>.org"
+                "#+title: %<%Y-%m-%d>\n"))))
+  (org-roam-capture-templates
+   '(("c" "concept" plain "%?"
+      :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                         "#+title: ${title}\n#+filetags: :concept:\n")
+      :unnarrowed t)
+     ("l" "literature" plain "* Notes\n%?"
+      :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                         ":PROPERTIES:\n:ROAM_REFS: ${ref}\n:END:\n#+title: ${title}\n#+filetags: :literature:\n")
+       :unnarrowed t)))
+  (org-roam-node-display-template
+   (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   :bind (("C-c n f" . org-roam-node-find)
          ("C-c n i" . org-roam-node-insert)
          ("C-c n l" . org-roam-buffer-toggle)

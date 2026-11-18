@@ -76,11 +76,11 @@
                     "--cross-file-rename"
                     "--completion-style=detailed"
                     "--header-insertion=iwyu"
-                    "--header-insertion-decorators"))
-               )
+                    "--header-insertion-decorators")))
+
   (add-to-list 'eglot-server-programs
-               '((odin-mode odin-ts-mode) . ("ols")))
-  )
+               '((odin-mode odin-ts-mode) . ("ols"))))
+
 
 ;; Built-in project.el (C-x p) replaces projectile; electric-pair replaces smartparens.
 (add-hook 'prog-mode-hook #'electric-pair-local-mode)
