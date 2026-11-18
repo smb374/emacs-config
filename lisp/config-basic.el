@@ -27,22 +27,11 @@
 ;; Motion aids
 (use-package avy
   :ensure t
-  :demand t
-  :bind (("C-c j" . avy-goto-line)
-         ("S-j" . avy-goto-char-timer)))
+  :demand t)
 
-;; Consult: Misc. enhanced commands
+;; Consult: Misc. enhanced commands. Keys live in config-keys.el.
 (use-package consult
   :ensure t
-  :bind (("C-x b" . 'consult-buffer)
-         ("M-y" . 'consult-yank-pop)
-         ("C-s" . 'consult-line)
-         ("C-c b" . 'consult-buffer)
-         ("C-c s" . 'consult-line)
-         ("C-c r" . 'consult-recent-file)
-         ("C-c k" . 'consult-ripgrep)
-         ("C-c L" . 'consult-line-multi)
-         ("C-c o" . 'consult-outline))
   :config
   ;; Narrowing lets you restrict results to certain groups of candidates
   (setq consult-narrow-key "<"))
@@ -50,7 +39,6 @@
 (use-package embark
   :ensure t
   :after avy
-  :bind (("C-c a" . embark-act))        ; bind this to an easy key to hit
   :init
   ;; Add the option to run embark when using avy
   (defun my/avy-action-embark (pt)
@@ -80,6 +68,10 @@
   :after vertico
   :bind (:map vertico-map
               ("M-DEL" . vertico-directory-delete-word)))
+
+(use-package vertico-repeat
+  :after vertico
+  :hook (minibuffer-setup . vertico-repeat-save))
 
 ;; Marginalia: annotations for minibuffer
 (use-package marginalia

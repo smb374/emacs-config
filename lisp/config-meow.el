@@ -1,5 +1,4 @@
 ;;; -*- lexical-binding: t; -*-
-;; Must load before config-dev (vterm uses `meow-mode-state-list').
 
 ;; Meow
 (use-package meow
@@ -88,13 +87,19 @@
      '("'" . repeat)
      '("<escape>" . nano-quit)))
   :config
+  ;; SPC g is the git group (config-keys.el), so SPC G is C-M- instead.
+  (setq meow-keypad-ctrl-meta-prefix ?G)
+  ;; Leave C-c j / C-c k unbound: in motion state, SPC j / SPC k then fall
+  ;; through to the mode's own j / k (e.g. magit).
   (meow-setup)
-  ;; Prvent RET & DEL modifying the content in normal state
+  ;; Prevent RET & DEL modifying the content in normal state
   (meow-define-keys 'normal
-    '("RET" . meow-next)
+    '("RET" . avy-goto-char-timer)
     '("DEL" . meow-prev))
   (meow-define-keys 'insert
     '("DEL" . backward-delete-char-untabify))
+  (dolist (entry '((vterm-mode . insert) (git-commit-mode . insert)))
+    (add-to-list 'meow-mode-state-list entry))
   (meow-global-mode 1))
 
 ;; Meow Tree-sitter

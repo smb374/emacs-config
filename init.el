@@ -9,7 +9,6 @@
 
 ;; --- Activate / Deactivate modes --------------------------------------------
 (savehist-mode 1)
-(cua-mode 1)
 (recentf-mode 1)
 (setq auto-save-default nil)
 (which-key-mode 1)
@@ -45,7 +44,6 @@ If the new path's directories does not exist, create them."
 
 (bind-key "C-x k" #'kill-current-buffer)
 (bind-key "C-x C-c" #'nano-kill)
-(bind-key "C-x C-r" #'recentf-open)
 (bind-key "C-g" #'nano-quit)
 (bind-key "M-n" #'make-frame)
 (bind-key "C-z"  nil) ;; No suspend frame
@@ -99,3 +97,4 @@ If the new path's directories does not exist, create them."
 (require 'config-org)
 (require 'config-ui)
 (require 'config-theme)
+(require 'config-keys)

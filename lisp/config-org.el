@@ -48,10 +48,6 @@
   (org-startup-indented t)              ; org-indent-mode
   :hook ((org-mode . visual-line-mode)  ; wrap lines at word breaks
          (org-mode . flyspell-mode))
-  :bind (("C-c g" . org-agenda)          ; C-c a is embark, C-c o is consult-outline
-         ("C-c c" . org-capture)
-         ("C-c l s" . org-store-link)
-         ("C-c l i" . org-insert-link-global))
   :config
   (require 'oc-csl)                     ; citation support
   (add-to-list 'org-export-backends 'md)
@@ -83,11 +79,6 @@
        :unnarrowed t)))
   (org-roam-node-display-template
    (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
-  :bind (("C-c n f" . org-roam-node-find)
-         ("C-c n i" . org-roam-node-insert)
-         ("C-c n l" . org-roam-buffer-toggle)
-         ("C-c n j" . org-roam-dailies-capture-today)   ; daily log
-         ("C-c n J" . org-roam-dailies-goto-today))
   :config
   (org-roam-db-autosync-mode)
   ;; Dedicated side window for backlinks

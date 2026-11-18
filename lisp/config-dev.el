@@ -34,8 +34,7 @@
   :mode "\\.odin\\'")
 
 (use-package magit
-  :ensure t
-  :bind ("C-x g" . 'magit-status))
+  :ensure t)
 
 (use-package diff-hl
   :ensure t
@@ -47,8 +46,6 @@
 
 (use-package eglot
   :hook (prog-mode . eglot-ensure)
-  :bind (("C-c e r" . 'eglot-rename)
-         ("C-c e f" . 'eglot-format-buffer))
   :custom
   (eglot-send-changes-idle-time 0.1)
   (eglot-extend-to-xref t)              ; activate Eglot in referenced non-project files
@@ -84,7 +81,6 @@
 
 (use-package vterm
   :ensure t
-  :bind ("C-c t" . vterm)
   :hook (vterm-mode . my/vterm-setting)
   :config
   (add-to-list 'display-buffer-alist
@@ -96,8 +92,6 @@
                  (window-vscroll . t)
                  (window-parameters
                   (no-delete-other-window . nil))))
-  (add-to-list 'meow-mode-state-list
-               '(vterm-mode . insert))
   (setq vterm-kill-buffer-on-exit t
         vterm-max-scrollback 5000))
 
