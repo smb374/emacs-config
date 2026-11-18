@@ -4,44 +4,57 @@
 (use-package org
   :custom
   (org-directory "~/Documents/org/")    ; relative agenda and capture paths resolve here
-  (org-agenda-files '("inbox.org" "work.org"))
-  (org-tag-alist '(;; locale
+  ;; GTD: inbox.org captures, gtd.org holds Actions/Projects/Waiting,
+  ;; someday.org is deliberately outside the agenda.
+  (org-agenda-files '("inbox.org" "gtd.org"))
+  (org-tag-alist '(;; area
                    (:startgroup)
                    ("home" . ?h)
                    ("work" . ?w)
                    ("school" . ?s)
                    (:endgroup)
                    (:newline)
-                   ;; scale
-                   (:startgroup)
-                   ("one-shot" . ?o)
-                   ("project" . ?j)
-                   ("tiny" . ?t)
-                   (:endgroup)
+                   ;; context
+                   ("@office" . ?o)
+                   ("@errands" . ?e)
+                   (:newline)
                    ;; misc
                    ("meta")
                    ("review")
                    ("reading")))
   (org-todo-keywords
-   '((sequence "TODO(t)" "WAITING(w@/!)" "STARTED(s!)" "|" "DONE(d!)" "OBSOLETE(o@)")))
+   '((sequence "TODO(t)" "NEXT(n)" "PROJ(p)" "WAITING(w@/!)" "|" "DONE(d!)" "CANCELLED(c@)")))
+  (org-stuck-projects '("/PROJ" ("NEXT") nil ""))
   (org-outline-path-complete-in-steps nil)
   (org-refile-use-outline-path 'file)
+  (org-refile-allow-creating-parent-nodes 'confirm)
   (org-export-with-smart-quotes t)
-  (org-refile-targets '((org-agenda-files :maxlevel . 2)))
+  (org-refile-targets '(("gtd.org" :maxlevel . 3)
+                        ("someday.org" :maxlevel . 2)))
+  ;; New archive file each year; the year is fixed when Emacs starts.
+  (org-archive-location (concat "archive/%s-" (format-time-string "%Y") "::"))
+  ;; Inbox items stay stateless until clarified.
   (org-capture-templates
-   '(("c" "Default Capture" entry (file "inbox.org")
-      "* TODO %?\n%U\n%i")
+   '(("c" "Capture" entry (file "inbox.org")
+      "* %?\n%U\n%i")
      ;; Keep an org-link to the thing we are working with.
-     ("r" "Capture with Reference" entry (file "inbox.org")
-      "* TODO %?\n%U\n%i\n%a")
-     ("w" "Work")
-     ("wm" "Work meeting" entry (file+headline "work.org" "Meetings")
-      "** TODO %?\n%U\n%i\n%a")
-     ("wr" "Work report" entry (file+headline "work.org" "Reports")
-      "** TODO %?\n%U\n%i\n%a")))
+     ("r" "Capture with reference" entry (file "inbox.org")
+      "* %?\n%U\n%i\n%a")))
   (org-agenda-custom-commands
    '(("n" "Agenda and All Todos" ((agenda) (todo)))
-     ("w" "Work" agenda "" ((org-agenda-files '("work.org"))))))
+     ("d" "Daily"
+      ((agenda "" ((org-agenda-span 'day)))
+       (todo "NEXT" ((org-agenda-sorting-strategy '(tag-up priority-down))))))
+     ("r" "Weekly review"
+      ((tags "LEVEL=1" ((org-agenda-files '("inbox.org"))
+                        (org-agenda-overriding-header "Inbox")))
+       (stuck "" ((org-agenda-overriding-header "Stuck projects")))
+       (todo "WAITING" ((org-agenda-overriding-header "Waiting for")))
+       (todo "" ((org-agenda-files '("someday.org"))
+                 (org-agenda-overriding-header "Someday/Maybe")))))
+     ("w" "Work"
+      ((agenda "") (todo "NEXT"))
+      ((org-agenda-tag-filter-preset '("+work"))))))
   ;; Looks. Each setting is a variable, so it costs no redraw work.
   (org-ellipsis " ▾")
   (org-pretty-entities t)               ; \alpha -> α, a_b -> subscript
@@ -53,6 +66,15 @@
   (add-to-list 'org-export-backends 'md)
   ;; Follow file links in the same window.
   (setf (cdr (assoc 'file org-link-frame-setup)) 'find-file))
+
+(defun my/org-archive-done ()
+  "Archive all DONE and CANCELLED entries in the current file."
+  (interactive)
+  (org-map-entries
+   (lambda ()
+     (org-archive-subtree)
+     (setq org-map-continue-from (org-element-property :begin (org-element-at-point))))
+   "/DONE|CANCELLED" 'file))
 
 ;; Needs hunspell and its en_US dictionary on PATH, or flyspell-mode fails.
 (setq ispell-program-name "hunspell"
