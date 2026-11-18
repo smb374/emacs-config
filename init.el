@@ -9,6 +9,7 @@
 
 ;; --- Activate / Deactivate modes --------------------------------------------
 (savehist-mode 1)
+(delete-selection-mode 1)
 (recentf-mode 1)
 (setq auto-save-default nil)
 (which-key-mode 1)

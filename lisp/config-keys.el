@@ -11,6 +11,7 @@
 (bind-keys
  ("C-x b" . consult-buffer)
  ("C-x C-r" . consult-recent-file)
+ ("C-S-v" . yank)
  ("C-s" . consult-line)
  ("M-y" . consult-yank-pop)
  ("C-c a" . embark-act))

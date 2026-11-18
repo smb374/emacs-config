@@ -89,6 +89,8 @@
   :config
   ;; SPC g is the git group (config-keys.el), so SPC G is C-M- instead.
   (setq meow-keypad-ctrl-meta-prefix ?G)
+  ;; Make y/s/p use the system clipboard (`meow-yank' ignores it by default).
+  (setq meow-use-clipboard t)
   ;; Leave C-c j / C-c k unbound: in motion state, SPC j / SPC k then fall
   ;; through to the mode's own j / k (e.g. magit).
   (meow-setup)
